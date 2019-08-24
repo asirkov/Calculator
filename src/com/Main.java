@@ -1,33 +1,23 @@
 package com;
 
 import java.util.*;
+import java.util.function.BinaryOperator;
 import java.util.regex.Pattern;
-
-interface Calculable {
-    Double calc(Double a, Double b);
-}
-
-
 
 public class Main {
 
-    private static Calculable operation(String op) {
+    private static BinaryOperator<Double> operation(String op) {
         switch (op) {
-            case "+":
-                return (x, y) -> { return x + y; };
-            case "-":
-                return  (x, y) -> { return x - y; };
-            case "*":
-                return  (x, y) -> { return x * y; };
-            case "/":
-                return  (x, y) -> { return x / y; };
-            default:
-                return (x, y) -> { return 0d; };
+            case "+": return (x, y) -> { return x + y; };
+            case "-": return  (x, y) -> { return x - y; };
+            case "*": return  (x, y) -> { return x * y; };
+            case "/": return  (x, y) -> { return x / y; };
+            default: return (x, y) -> { return 0d; };
         }
     }
 
     public static void main(String[] args) {
-        Calculable calculator = null;
+        BinaryOperator<Double> calculator = null;
 
         //Scanner in = new Scanner(System.in);
         String s = "120.1 - 22 ="; //in.nextLine();
@@ -56,7 +46,7 @@ public class Main {
         calculator = operation(op);
 
         if(calculator != null) {
-            System.out.printf("%.1f %s %.1f = %.1f", a, op, b, calculator.calc(a, b) );
+            System.out.printf("%.1f %s %.1f = %.1f", a, op, b, calculator.apply(a, b) );
         }
     }
 }
