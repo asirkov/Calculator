@@ -7,8 +7,24 @@ interface Calculable {
     Double calc(Double a, Double b);
 }
 
+
+
 public class Main {
 
+    private static Calculable operation(String op) {
+        switch (op) {
+            case "+":
+                return (x, y) -> { return x + y; };
+            case "-":
+                return  (x, y) -> { return x - y; };
+            case "*":
+                return  (x, y) -> { return x * y; };
+            case "/":
+                return  (x, y) -> { return x / y; };
+            default:
+                return (x, y) -> { return 0d; };
+        }
+    }
 
     public static void main(String[] args) {
         Calculable calculator = null;
@@ -37,21 +53,7 @@ public class Main {
 
         //System.out.printf("%.1f %s %.1f = ", a, op, b);
         //[120, -, 22, =]
-        switch (op) {
-            case "+":
-                calculator = (x, y) -> { return x + y; };
-                break;
-            case "-":
-                calculator = (x, y) -> { return x - y; };
-                break;
-            case "*":
-                calculator = (x, y) -> { return x * y; };
-                break;
-            case "/":
-                calculator = (x, y) -> { return x / y; };
-                break;
-            default: break;
-        }
+        calculator = operation(op);
 
         if(calculator != null) {
             System.out.printf("%.1f %s %.1f = %.1f", a, op, b, calculator.calc(a, b) );
